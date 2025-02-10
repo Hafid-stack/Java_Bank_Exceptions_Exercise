@@ -1,10 +1,12 @@
 package BankingAccount;
 
-public class FondsInsuffisantsException extends Exception{
-    public FondsInsuffisantsException(){
-        super();
+public class FondsInsuffisantsException extends Exception {
+    public FondsInsuffisantsException() {
+        super("Insufficient funds.");
     }
-    public FondsInsuffisantsException(String message){
+
+    public FondsInsuffisantsException(String message) {
         super(message);
     }
 }
+

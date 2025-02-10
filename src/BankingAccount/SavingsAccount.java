@@ -1,22 +1,18 @@
 package BankingAccount;
 
 public class SavingsAccount extends Account {
-private double finalBalance;
-    public SavingsAccount(long accountNumber, double balance, String fullName, boolean active, double interestRate) {
-        super(accountNumber, balance, fullName, active);
+    private double interestRate;
 
-
+    public SavingsAccount(long accountNumber, double balance, String fullName, double interestRate) {
+        super(accountNumber, balance, fullName);
+        this.interestRate = interestRate;
     }
-public void interestCalculator(double interest,double currentAmount) {
-        interest=(interest/100)/356;
-currentAmount=currentAmount*interest;
 
-}
-
-    public void interest(Account account, double interestRate,double finalBalance) {
-        if (!account.isActive()) {
-         interestCalculator(interestRate,finalBalance);
-
+    public void calculateInterest() {
+        if (getBalance() > 0) { // Ensure positive balance before calculating interest
+            double dailyInterestRate = interestRate / 100 / 365; // Assuming 365 days in a year
+            double dailyInterest = getBalance() * dailyInterestRate;
+            deposit(dailyInterest); // Use the deposit method for consistency
         }
     }
 }

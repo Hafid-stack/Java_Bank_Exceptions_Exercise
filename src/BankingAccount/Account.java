@@ -4,66 +4,56 @@ public class Account {
     private long accountNumber;
     private double balance;
     private String fullName;
-    private boolean active=true;
-    public Account(long accountNumber, double balance, String fullName, boolean active) {
+
+    public Account(long accountNumber, double balance, String fullName) {
         this.accountNumber = accountNumber;
         this.balance = balance;
         this.fullName = fullName;
-        this.active = active;
-
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public long getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(long accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
     public double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
 
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
     public void deposit(double amount) {
-        this.balance += amount;
-    }
-    public void withdraw(double amount) throws FondsInsuffisantsException {
-        if (amount <= this.balance) {
-            this.balance -= amount;
-            System.out.println("Amount withdrawn: " + amount);
-        } else if (amount > this.balance) {
-            throw new FondsInsuffisantsException("Insufficient funds in balance to withdraw: " + amount+" you can use another account type.");
-
-            }
-
+        if (amount > 0) {
+            balance += amount;
+        } else {
+            System.out.println("Deposit amount must be greater than zero.");
         }
     }
-    public void moneyTransfer(Account sender, Account receiver, double amount) throws FondsInsuffisantsException {
 
+    public void withdraw(double amount) throws FondsInsuffisantsException {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+        } else if (amount <= 0) {
+            System.out.println("Withdrawal amount must be greater than zero.");
+        } else {
+            throw new FondsInsuffisantsException("Insufficient funds.");
+        }
+    }
+
+    public void displayAccount() {
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Account Holder: " + fullName);
+        System.out.println("Balance: " + balance);
+    }
+
+    public static void moneyTransfer(Account sender, Account receiver, double amount) throws FondsInsuffisantsException {
         sender.withdraw(amount);
         receiver.deposit(amount);
     }
 
-    public Account() {
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }
