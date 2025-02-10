@@ -47,10 +47,18 @@ public class Account {
     public void deposit(double amount) {
         this.balance += amount;
     }
-    public void withdraw(double amount) {
-        this.balance -= amount;
+    public void withdraw(double amount) throws FondsInsuffisantsException {
+        if (amount <= this.balance) {
+            this.balance -= amount;
+            System.out.println("Amount withdrawn: " + amount);
+        } else if (amount > this.balance) {
+            throw new FondsInsuffisantsException("Insufficient funds in balance to withdraw: " + amount+" you can use another account type.");
+
+            }
+
+        }
     }
-    public void moneyTransfer(Account sender, Account receiver, double amount) {
+    public void moneyTransfer(Account sender, Account receiver, double amount) throws FondsInsuffisantsException {
 
         sender.withdraw(amount);
         receiver.deposit(amount);

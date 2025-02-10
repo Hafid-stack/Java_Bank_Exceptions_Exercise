@@ -14,7 +14,7 @@ currentAmount=currentAmount*interest;
 }
 
     public void interest(Account account, double interestRate,double finalBalance) {
-        if (account.isActive()==false) {
+        if (!account.isActive()) {
          interestCalculator(interestRate,finalBalance);
 
         }

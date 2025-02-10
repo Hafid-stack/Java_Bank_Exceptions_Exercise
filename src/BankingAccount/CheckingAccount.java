@@ -13,7 +13,10 @@ public class CheckingAccount extends Account {
     public void canOverDraft(CheckingAccount account,double amount) {
         if (account.isActive() && account.getBalance() >= 0) {
          account.deposit(amount);
-         account.isActive()=false;
+         account.setBalance(account.getBalance() * (-1));
+         account.setActive(false);
+        }else {
+            System.out.println("Account is not eligible for deposit");
         }
     }
 
